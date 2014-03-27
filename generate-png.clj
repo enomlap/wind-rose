@@ -12,7 +12,7 @@
 (defmacro defs [vars definations]
   (doseq [[v d] (map list vars definations)]
          (println (format "def variable : %-15s AS: %-20s" v d));(intern 'user v d))); python style assignation
-         (intern *ns* v d)))
+(intern *ns* v d)))
 (defs [image-file-name Title nSpokes pngWidth pngHeight] [ "./test1.png" "Wind Rose Example(%)" 16 720 960])
 
 (def rose-center-x (/ pngWidth 2))
@@ -45,23 +45,23 @@
 
 ;support functions:
 (defn call-with-setting
-			"s is environment setting for calling f, should b Color, or &(color linestroke fontsize fontname)"
-			[s f & args]
-			(let [settings (flatten (cons s []))
-				fs (take (count a) [#(.setColor g2d %) #(.setStroke g2d (BasicStroke. %)) #(.setFont g2d (Font. "Arial" Font/BOLD,%))]) ]
-				(doseq [[tf a]  (map list fs settings)] 
-;						(println "---------------------" tf a)
-							 (tf a)))
-			(apply f args)
-			(.setColor g2d Color/BLACK) (.setStroke g2d (BasicStroke. 1)) (.setFont g2d (Font. "Arial" Font/BOLD,16)))
+      "s is environment setting for calling f, should b Color, or &(color linestroke fontsize fontname)"
+      [s f & args]
+      (let [settings (flatten (cons s []))
+        fs (take (count a) [#(.setColor g2d %) #(.setStroke g2d (BasicStroke. %)) #(.setFont g2d (Font. "Arial" Font/BOLD,%))]) ]
+        (doseq [[tf a]  (map list fs settings)] 
+               ;                       (println "---------------------" tf a)
+               (tf a)))
+      (apply f args)
+      (.setColor g2d Color/BLACK) (.setStroke g2d (BasicStroke. 1)) (.setFont g2d (Font. "Arial" Font/BOLD,16)))
 (defn rose-rtheta-to-xy [r theta] [(+ rose-center-x (* r (Math/cos (/ (* theta 3.14) 180)))) (- rose-center-y (* r (Math/sin (/ (* theta 3.14) 180))))])
 (defn draw-ab 
-			[r0 theta0 r1 theta1]
-					 (apply #(.drawLine g2d %1 %2 %3 %4) (concat (rose-rtheta-to-xy r0 theta0) (rose-rtheta-to-xy r1 theta1))))
+      [r0 theta0 r1 theta1]
+      (apply #(.drawLine g2d %1 %2 %3 %4) (concat (rose-rtheta-to-xy r0 theta0) (rose-rtheta-to-xy r1 theta1))))
 (defn draw-center-str
-			[s cx cy]
-					(let [str-len (.. g2d getFontMetrics (getStringBounds s g2d) getWidth) str-height (.. g2d getFontMetrics (getStringBounds s g2d) getHeight)]
-						(.drawString g2d s (int (- cx (/ str-len 2))) (int (+ cy (/ str-height 2))))))
+      [s cx cy]
+      (let [str-len (.. g2d getFontMetrics (getStringBounds s g2d) getWidth) str-height (.. g2d getFontMetrics (getStringBounds s g2d) getHeight)]
+        (.drawString g2d s (int (- cx (/ str-len 2))) (int (+ cy (/ str-height 2))))))
 
 (defn draw-percent [d a]
       "for array d:direction and array a:angels, draw percent line"
@@ -72,7 +72,7 @@
         scalefn #(* (/ rose-r mmm) %)
         scaled-d (map scalefn d)]
         (doseq [r (range s (+ mmm s) s)]
-							 (let [rr (scalefn r)] (.drawOval g2d (- rose-center-x rr) (- rose-center-y rr) (* 2 rr) (* 2 rr)))
+               (let [rr (scalefn r)] (.drawOval g2d (- rose-center-x rr) (- rose-center-y rr) (* 2 rr) (* 2 rr)))
                (draw-ab (scalefn r) 45 (scalefn r) 44)
                (let [xy (rose-rtheta-to-xy (scalefn r) 43)] (call-with-setting [Color/BLACK 5 16] draw-center-str (str r) (first xy) (+ (second xy) 10))))
         (doseq [[d0 a0 d1 a1] (map list scaled-d a (take nSpokes (drop 1 (cycle scaled-d))) (take nSpokes (drop 1 (cycle a))))]
@@ -90,7 +90,7 @@
   (doseq [[r theta t] (map list rs thetas ts)]
          ;(draw-center-str t (->> (+ r 15) (* (-> theta (* 3.14) (/ 180) Math/cos)) (+ rose-center-x)) (->> (+ r 15) (* (-> theta (* 3.14) (/ 180) Math/sin)) (+ rose-center-y)))
          (let [[x y] (rose-rtheta-to-xy (+ r 15) theta)] 
-					 (call-with-setting [Color/BLACK 1 16] draw-center-str t x y))
+           (call-with-setting [Color/BLACK 1 16] draw-center-str t x y))
          (.drawLine g2d (->> r (* (-> theta (* 3.14) (/ 180) Math/cos)) (+ rose-center-x)) (->> r (* (-> theta (* 3.14) (/ 180) Math/sin)) (+ rose-center-y)) rose-center-x rose-center-y)))
 
 ;draw legend:
