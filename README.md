@@ -26,7 +26,7 @@ Wind Rose Of here!
 44
 
 the output image will be:
-![image](https://github.com/enomlap/wind-rose/blob/master/test1.png)
+![image](https://raw.githubusercontent.com/enomlap/wind-rose/master/test1.png)
 =============================================================================
 enomlap
 #zuo,Mar 27, 2014
