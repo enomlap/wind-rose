@@ -5,7 +5,7 @@ Data file name is "ed.dat", you can change within the clj source fiel.
 
 This is just my excrice when I am learning clojure.
 
-For example, given data is(here first line is the image title):
+For example, given data is "ed.dat", here first line is the image title:
 -----------------------------------------------------------------------------
 Wind Rose Of here!
 30
@@ -26,7 +26,7 @@ Wind Rose Of here!
 44
 
 the output image will be:
- ![image](https://github.com/enomlap/wind-rose/raw/master/test1.jpg)
+![image](https://github.com/enomlap/wind-rose/blob/master/test1.png)
 =============================================================================
 enomlap
 #zuo,Mar 27, 2014
