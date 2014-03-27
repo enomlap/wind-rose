@@ -1,4 +1,4 @@
-																	 WIND-ROSE
+WIND-ROSE
 =============================================================================
 Draw a wind-rose map for given data.
 Data file name is "ed.dat", you can change within the clj source fiel.
