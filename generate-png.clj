@@ -11,8 +11,8 @@
 
 (defmacro defs [vars definations]
   (doseq [[v d] (map list vars definations)]
-         (println (format "def variable : %-15s AS: %-20s" v d));(intern 'user v d))); python style assignation
-(intern *ns* v d)))
+         (println (format "def variable : %-15s AS: %-20s" v d));#(intern 'user v d))); python style assignation
+         (intern *ns* v d)))
 (defs [image-file-name Title nSpokes pngWidth pngHeight] [ "./test1.png" "Wind Rose Example(%)" 16 720 960])
 
 (def rose-center-x (/ pngWidth 2))
